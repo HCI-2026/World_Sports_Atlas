@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An interactive map of 33 traditional sports and martial arts from six continents.">
+  <title>World Sports Atlas | Traditional Sports &amp; Martial Arts Around the World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true"><span class="c-asia"></span><span class="c-europe"></span><span class="c-africa"></span><span class="c-namerica"></span><span class="c-samerica"></span><span class="c-oceania"></span></span>World Sports Atlas</a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="index.html" aria-current="page">Map</a></li>
+        <li><a href="index.html#all-sports">All sports</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="sources.html">Sources</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__slide"></div>
+      <div class="hero__slide"></div>
+      <div class="hero__content wrap">
+        <h1 id="hero-title">Traditional Sports &amp; Martial Arts Around the World</h1>
+        <p class="hero__lead">33 sports from six continents, and the rituals, values and stories that travelled with them.</p>
+        <a class="button" href="#map-section">Explore the map</a>
+      </div>
+      <p class="hero__credit" id="hero-credit"></p>
+    </section>
+  <div class="stripe" aria-hidden="true">
+    <span class="c-asia"></span>
+    <span class="c-europe"></span>
+    <span class="c-africa"></span>
+    <span class="c-namerica"></span>
+    <span class="c-samerica"></span>
+    <span class="c-oceania"></span>
+  </div>
+
+    <section class="map-section" id="map-section" aria-labelledby="map-title">
+      <div class="wrap">
+        <div class="map-header">
+          <div>
+            <h2 id="map-title">Choose a continent</h2>
+            <p id="map-hint">Click a continent to zoom in. Numbers show how many sports come from each one.</p>
+          </div>
+          <button type="button" class="map-back" id="map-back" hidden>Back to world map</button>
+        </div>
+        <div class="continent-switch" aria-label="Jump to a continent"></div>
+        <div class="map map--world" id="map">
+          <div class="map__markers" id="map-markers"></div>
+          <div class="pin-menu" id="pin-menu"></div>
+          <p class="map-status" id="map-status">Loading the map…</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="all-sports" id="all-sports" aria-labelledby="all-sports-title">
+      <div class="wrap">
+        <h2 id="all-sports-title">All 33 sports</h2>
+        <p>Every sport on the map, grouped by continent. Hover a sport to preview it, and click to keep it open.</p>
+        <div class="continent-grid">
+        <div class="continent-list c-asia">
+          <h3>Asia</h3>
+          <ul>
+            <li><button type="button" data-sport="muay-thai">Muay Thai <span>Thailand</span></button></li>
+            <li><button type="button" data-sport="sepak-takraw">Sepak Takraw <span>Malaysia</span></button></li>
+            <li><button type="button" data-sport="sumo">Sumo <span>Japan</span></button></li>
+            <li><button type="button" data-sport="kabaddi">Kabaddi <span>India</span></button></li>
+            <li><button type="button" data-sport="taekwondo">Taekwondo <span>South Korea</span></button></li>
+            <li><button type="button" data-sport="pencak-silat">Pencak Silat <span>Indonesia</span></button></li>
+          </ul>
+        </div>
+        <div class="continent-list c-europe">
+          <h3>Europe</h3>
+          <ul>
+            <li><button type="button" data-sport="highland-games">Highland Games <span>Scotland, UK</span></button></li>
+            <li><button type="button" data-sport="fencing">Fencing <span>France</span></button></li>
+            <li><button type="button" data-sport="basque-pelota">Basque Pelota <span>Basque Country, Spain</span></button></li>
+            <li><button type="button" data-sport="gaelic-games">Gaelic Football &amp; Hurling <span>Ireland</span></button></li>
+            <li><button type="button" data-sport="sambo">Sambo <span>Russia</span></button></li>
+            <li><button type="button" data-sport="glima">Glíma <span>Iceland</span></button></li>
+          </ul>
+        </div>
+        <div class="continent-list c-africa">
+          <h3>Africa</h3>
+          <ul>
+            <li><button type="button" data-sport="laamb">Laamb (Senegalese Wrestling) <span>Senegal</span></button></li>
+            <li><button type="button" data-sport="dambe">Dambe <span>Nigeria</span></button></li>
+            <li><button type="button" data-sport="nguni-stick-fighting">Nguni Stick Fighting <span>South Africa</span></button></li>
+            <li><button type="button" data-sport="tahtib">Tahtib <span>Egypt</span></button></li>
+          </ul>
+        </div>
+        <div class="continent-list c-namerica">
+          <h3>North America</h3>
+          <ul>
+            <li><button type="button" data-sport="lacrosse">Lacrosse <span>Canada</span></button></li>
+            <li><button type="button" data-sport="rodeo">Rodeo <span>United States</span></button></li>
+            <li><button type="button" data-sport="charreria">Charrería <span>Mexico</span></button></li>
+            <li><button type="button" data-sport="ice-hockey">Ice Hockey <span>Canada</span></button></li>
+            <li><button type="button" data-sport="basketball">Basketball <span>United States</span></button></li>
+            <li><button type="button" data-sport="arctic-sports">Arctic Sports (Inuit Games) <span>Canada</span></button></li>
+          </ul>
+        </div>
+        <div class="continent-list c-samerica">
+          <h3>South America</h3>
+          <ul>
+            <li><button type="button" data-sport="capoeira">Capoeira <span>Brazil</span></button></li>
+            <li><button type="button" data-sport="bjj">Brazilian Jiu-Jitsu <span>Brazil</span></button></li>
+            <li><button type="button" data-sport="pato">Pato <span>Argentina</span></button></li>
+            <li><button type="button" data-sport="football-brazil">Football (Futebol) <span>Brazil</span></button></li>
+            <li><button type="button" data-sport="palin">Palin (Chueca) <span>Chile</span></button></li>
+          </ul>
+        </div>
+        <div class="continent-list c-oceania">
+          <h3>Oceania</h3>
+          <ul>
+            <li><button type="button" data-sport="haka">The Haka <span>New Zealand</span></button></li>
+            <li><button type="button" data-sport="rugby-nz">Rugby in New Zealand &amp; the Pacific <span>New Zealand</span></button></li>
+            <li><button type="button" data-sport="surfing">Surfing <span>Hawaii</span></button></li>
+            <li><button type="button" data-sport="outrigger">Outrigger Canoeing (Va'a) <span>Hawaii</span></button></li>
+            <li><button type="button" data-sport="lua">Lua <span>Hawaii</span></button></li>
+            <li><button type="button" data-sport="ki-o-rahi">Kī-o-rahi <span>New Zealand</span></button></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="panel" id="sport-panel" role="dialog" aria-labelledby="panel-title" aria-hidden="true">
+    <div class="panel__bar">
+      <p class="panel__hint" id="panel-hint">Preview. Click the sport to keep it open.</p>
+      <button type="button" class="panel__close" id="panel-close">Close</button>
+    </div>
+    <div class="panel__body" id="panel-body"></div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>World Sports Atlas, an HCI group project on the theme of Internationalization. Facts and photos come from <a href="sources.html">Wikipedia</a>.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+  <script src="js/countries.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/howtoplay.js"></script>
+  <script src="js/map.js"></script>
+</body>
+</html>

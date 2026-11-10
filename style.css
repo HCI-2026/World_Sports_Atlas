@@ -1,0 +1,1033 @@
+/*
+  style.css
+  Shared styles for every page of World Sports Atlas.
+  Sections:
+    1. Design tokens
+    2. Base elements
+    3. Header and navigation
+    4. Hero banner (home page)
+    5. Map
+    6. Hover menu and side panel
+    7. All sports list
+    8. Inner pages (About, Sources)
+    9. Footer
+    10. Small screens and reduced motion
+*/
+
+/* ---------- 1. Design tokens ---------- */
+:root {
+  --ink: #1C2A35;
+  --muted: #586974;
+  --line: #CAD6DC;
+  --page: #EEF3F5;
+  --surface: #FFFFFF;
+  --ocean: #D9E5EA;
+  --land-off: #C7D1D6;
+
+  --asia: #C0432F;
+  --europe: #2F5DA8;
+  --africa: #5E8C3A;
+  --namerica: #8A3F7E;
+  --samerica: #C68A1E;
+  --oceania: #1F8178;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Barlow", "Segoe UI", Arial, sans-serif;
+
+  --radius: 12px;
+  --wrap: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+}
+
+/* Continent colour classes: set --c, which other rules use */
+.c-asia { --c: var(--asia); }
+.c-europe { --c: var(--europe); }
+.c-africa { --c: var(--africa); }
+.c-namerica { --c: var(--namerica); }
+.c-samerica { --c: var(--samerica); }
+.c-oceania { --c: var(--oceania); }
+
+/* ---------- 2. Base elements ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0 0 0.5em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--europe);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--samerica);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- 3. Header and navigation ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Six coloured bars = the six continents */
+.brand__mark {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.brand__mark span {
+  width: 5px;
+  height: 22px;
+  border-radius: 2px;
+  background: var(--c);
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-nav a:hover {
+  background: var(--page);
+}
+
+.site-nav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+/* ---------- 4. Hero banner ---------- */
+.hero {
+  position: relative;
+  min-height: min(78vh, 720px);
+  display: flex;
+  align-items: flex-end;
+  background: var(--ink);
+  color: var(--surface);
+  overflow: hidden;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.hero__slide.is-active {
+  opacity: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(18, 28, 36, 0.92) 0%, rgba(18, 28, 36, 0.55) 45%, rgba(18, 28, 36, 0.2) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: 120px;
+  padding-bottom: 56px;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 6.4vw, 5.25rem);
+  line-height: 0.95;
+  max-width: 13ch;
+  margin-bottom: 0.3em;
+}
+
+.hero__lead {
+  font-size: 1.25rem;
+  max-width: 42ch;
+  color: #E3EBEF;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--ocean);
+  color: var(--ink);
+}
+
+.hero__credit {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 18px;
+  z-index: 1;
+  margin: 0;
+  font-size: 0.8rem;
+  color: #C9D6DD;
+}
+
+.hero__credit a {
+  color: inherit;
+}
+
+/* The striped bar under the banner: each colour is one continent,
+   and its width matches how many sports that continent has. */
+.stripe {
+  display: flex;
+  height: 8px;
+}
+
+.stripe span {
+  background: var(--c);
+  flex-grow: 6;
+}
+
+/* Africa has 4 sports and South America has 5 */
+.stripe .c-africa {
+  flex-grow: 4;
+}
+
+.stripe .c-samerica {
+  flex-grow: 5;
+}
+
+/* ---------- 5. Map ---------- */
+.map-section {
+  padding: 56px 0 40px;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px 32px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.map-header p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.map-back {
+  padding: 10px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.map-back:hover {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.continent-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.continent-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.continent-switch button::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.continent-switch button span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.continent-switch button[aria-pressed="true"] {
+  border-color: var(--c);
+  box-shadow: inset 0 0 0 1px var(--c);
+}
+
+.map {
+  position: relative;
+  height: clamp(380px, 70vh, 740px);
+  border-radius: var(--radius);
+  background: var(--ocean);
+  overflow: hidden;
+}
+
+.map__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sphere {
+  fill: var(--ocean);
+}
+
+.country {
+  fill: var(--c);
+  fill-opacity: 0.8;
+  stroke: var(--surface);
+  stroke-width: 0.6;
+  cursor: pointer;
+  transition: fill-opacity 0.2s ease, fill 0.3s ease;
+}
+
+.country--none {
+  fill: var(--land-off);
+  cursor: default;
+}
+
+.map--world .country.is-hover {
+  fill-opacity: 1;
+}
+
+.map--continent .country {
+  fill: var(--land-off);
+  fill-opacity: 1;
+}
+
+.map--continent .country.in-view {
+  fill: var(--c);
+  fill-opacity: 0.18;
+  cursor: default;
+}
+
+/* Each country with a sport has its own colour (set in data.js) */
+.map--continent .country.is-origin {
+  fill: var(--loc);
+  fill-opacity: 1;
+  stroke-width: 1;
+  cursor: pointer;
+}
+
+.map--continent .country.is-origin:hover {
+  fill-opacity: 0.8;
+}
+
+.map__markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Continent badges on the world view */
+.badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% -50%;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 14px 5px;
+  border: 2px solid var(--c);
+  border-radius: 999px;
+  background: var(--surface);
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(28, 42, 53, 0.18);
+  white-space: nowrap;
+}
+
+.badge__count {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--c);
+}
+
+.badge__name {
+  font-weight: 600;
+}
+
+.badge:hover {
+  background: var(--c);
+  color: var(--surface);
+}
+
+.badge:hover .badge__count {
+  color: var(--surface);
+}
+
+/* Number pins on a country */
+.pin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% -50%;
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--c);
+  color: var(--surface);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(28, 42, 53, 0.3);
+  transition: scale 0.15s ease;
+}
+
+.pin:hover,
+.pin:focus-visible {
+  scale: 1.15;
+}
+
+.map-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- 6. Hover menu and side panel ---------- */
+.pin-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  min-width: 220px;
+  max-width: 280px;
+  padding: 12px;
+  border-top: 5px solid var(--c);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(28, 42, 53, 0.22);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.pin-menu.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.pin-menu__title {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.pin-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pin-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  text-align: left;
+  font-weight: 600;
+}
+
+.pin-menu button:hover,
+.pin-menu button:focus-visible,
+.pin-menu button.is-shown {
+  background: var(--page);
+  color: var(--c);
+}
+
+.pin-menu button.is-pinned {
+  box-shadow: inset 4px 0 0 var(--c);
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  width: max(380px, 33.333vw);
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  box-shadow: -12px 0 32px rgba(28, 42, 53, 0.2);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s ease;
+}
+
+.panel__bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Shown only while a sport is being previewed (hovered, not clicked) */
+.panel__hint {
+  display: none;
+  margin: 0 auto 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.panel.is-preview .panel__hint {
+  display: block;
+}
+
+.panel.is-preview .panel__bar {
+  background: var(--page);
+}
+
+.panel__close {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.panel__close:hover {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 40px;
+}
+
+.panel__figure {
+  margin: 0 -24px 20px;
+}
+
+.panel__photo {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  /* Crop from near the top so people's heads stay in the picture */
+  object-position: center 20%;
+}
+
+.panel__figure figcaption {
+  padding: 6px 24px 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.panel__figure figcaption a {
+  color: inherit;
+}
+
+.panel__photo--empty {
+  display: grid;
+  place-items: center;
+  margin: 0 -24px 20px;
+  width: auto;
+  background: var(--c);
+  color: var(--surface);
+  font-family: var(--font-display);
+  font-size: 6rem;
+  font-weight: 700;
+}
+
+.panel__place {
+  margin: 0 0 4px;
+  font-weight: 600;
+  color: var(--c);
+}
+
+.panel__title {
+  font-size: 2.4rem;
+  margin-bottom: 16px;
+}
+
+/* "The basics" box at the top of each panel */
+.basics {
+  margin: 0 0 8px;
+  padding: 16px 18px;
+  border-left: 5px solid var(--c);
+  border-radius: 8px;
+  background: var(--page);
+}
+
+.basics__title {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.basics dl {
+  margin: 0;
+}
+
+.basics dt {
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.basics dt:first-child {
+  margin-top: 0;
+}
+
+.basics dd {
+  margin: 2px 0 0;
+}
+
+.basics p {
+  margin: 0;
+}
+
+.basics ul {
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+
+.basics li + li {
+  margin-top: 4px;
+}
+
+.panel__section {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.panel__section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+
+.panel__section p {
+  margin: 0;
+}
+
+.panel__small {
+  font-size: 0.9rem;
+  margin-top: 8px !important;
+}
+
+.terms {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 16px;
+  margin: 0;
+}
+
+.terms dt {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.terms dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Video thumbnail: a picture that links to YouTube */
+.video {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.video:hover img {
+  opacity: 0.85;
+}
+
+/* Round play button drawn with CSS (circle + triangle) */
+.video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: rgba(28, 42, 53, 0.82);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.video__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  translate: -50% -50%;
+  border-style: solid;
+  border-width: 13px 0 13px 22px;
+  border-color: transparent transparent transparent var(--surface);
+}
+
+.video:hover .video__play {
+  background: #C4302B;
+}
+
+.source-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* ---------- 7. All sports list ---------- */
+.all-sports {
+  padding: 40px 0 72px;
+}
+
+.all-sports > .wrap > p {
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.continent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 32px 40px;
+  margin-top: 28px;
+}
+
+.continent-list h3 {
+  padding-bottom: 8px;
+  border-bottom: 4px solid var(--c);
+}
+
+.continent-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.continent-list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.continent-list button {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 2px;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-weight: 600;
+}
+
+.continent-list button span {
+  color: var(--muted);
+  font-weight: 400;
+  text-align: right;
+}
+
+.continent-list button:hover,
+.continent-list button.is-shown {
+  color: var(--c);
+}
+
+.continent-list button.is-pinned {
+  color: var(--c);
+  box-shadow: inset 4px 0 0 var(--c);
+  padding-left: 12px;
+}
+
+/*
+  On wide screens the side panel covers the right third of the page.
+  The list leaves that space free, so you can hover down the list
+  while the panel shows each sport.
+*/
+@media (min-width: 721px) {
+  .continent-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    margin-right: max(0px, calc(max(380px, 33.333vw) - (100vw - min(100vw, var(--wrap))) / 2 - var(--gutter) + 24px));
+  }
+}
+
+/* ---------- 8. Inner pages ---------- */
+.page-head {
+  padding: 64px 0 32px;
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.page-head h1 {
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  margin-bottom: 0.2em;
+}
+
+.page-head p {
+  max-width: 60ch;
+  color: #D6E0E5;
+  margin: 0;
+}
+
+.prose {
+  max-width: 70ch;
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+
+.prose h2 {
+  font-size: 2rem;
+  margin-top: 1.2em;
+}
+
+.prose ol,
+.prose ul {
+  padding-left: 22px;
+}
+
+.prose li {
+  margin-bottom: 6px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 24px 0 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.sources-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+
+.sources-table th,
+.sources-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.sources-table thead th {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  background: var(--page);
+}
+
+.sources-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.sources-page {
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+
+.sources-page > p,
+.sources-page > ul {
+  max-width: 70ch;
+}
+
+/* ---------- 9. Footer ---------- */
+.site-footer {
+  padding: 32px 0;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ---------- 10. Small screens and reduced motion ---------- */
+@media (max-width: 720px) {
+  .panel {
+    width: 100%;
+  }
+
+  .map {
+    height: clamp(300px, 95vw, 460px);
+  }
+
+  /* On phones the badges show only the number;
+     the continent buttons above the map carry the names. */
+  .badge {
+    padding: 2px 9px 3px;
+  }
+
+  .badge__count {
+    font-size: 1.3rem;
+  }
+
+  .badge__name {
+    display: none;
+  }
+
+  .hero__credit {
+    left: var(--gutter);
+    right: auto;
+  }
+
+  .hero__content {
+    padding-bottom: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero__slide,
+  .panel,
+  .country,
+  .pin,
+  .pin-menu {
+    transition: none;
+  }
+}
